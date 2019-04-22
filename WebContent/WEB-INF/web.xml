@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>woolok</display-name>
+  <!-- PARAMETROS GENERALES Y LISTENER DE ARRANQUE -->
+  	<context-param>
+		<description>Spring config file locations</description>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/application-root-spring.xml</param-value>
+	</context-param>
+<!-- 	<context-param>
+    	<param-name> org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG </param-name>
+    	<param-value>/WEB-INF/tiles.xml</param-value>
+	</context-param> -->
+	<listener>
+		<listener-class id="spring-context-listener">
+			org.springframework.web.context.ContextLoaderListener 
+		</listener-class>
+	    <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
+	</listener>
+
+  	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- Filtros -->
+	<filter>
+		<filter-name>struts-prepare</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+		<init-param>
+			<param-name>actionPackages</param-name>
+			<param-value>ar.com.stk.web.struts</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>struts-execute</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+	</filter>
+	
+	<!-- Mapping de filtros -->
+	<filter-mapping>
+		<filter-name>struts-prepare</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts-execute</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Paginas Custom para errores http -->
+<!--  	 <error-page>
+    	<error-code>404</error-code>
+		<location></location>
+    </error-page> -->
+    
+</web-app>
